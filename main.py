@@ -24,7 +24,7 @@ def get_texts():
     return texts
 def main():
     init()
-    font = Font('Consola.ttf', 20)
+    font = Font('consola.ttf', 20)
     screen = set_mode((11 * MAX_LENGTH, 60))
     texts = get_texts()
     if texts:
