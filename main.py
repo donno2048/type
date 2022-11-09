@@ -1,14 +1,15 @@
+from json import loads
 from pygame import init, QUIT, KEYDOWN, K_BACKSPACE
 from pygame.display import update, set_mode
 from pygame.time import Clock
 from pygame.font import Font
-from pygame.event import get as get_events
+from pygame.event import get
 from time import time
-from requests import get
+from urllib.request import urlopen
 from string import printable
 MAX_LENGTH = 100
 def get_text():
-    text = get('https://en.wikipedia.org/api/rest_v1/page/random/summary').json()['extract']
+    text = loads(urlopen('https://en.wikipedia.org/api/rest_v1/page/random/summary').read())['extract']
     for letter in text:
         if letter not in printable:
             return get_text()
@@ -46,7 +47,7 @@ def main():
             screen.blit(font.render(letter, True, color), (index * 11, 0))
         screen.blit(font.render(typed, True, (0, 0, 0)), (0, 30))
         update()
-        for e in get_events():
+        for e in get():
             if e.type == QUIT:
                 quit()
             if e.type == KEYDOWN:
